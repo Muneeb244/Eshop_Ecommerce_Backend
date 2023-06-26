@@ -4,10 +4,11 @@ const Category = require('../models/category');
 const Product = require('../models/product');
 const mongoose = require('mongoose');
 const auth = require('../../middleware/authentication');
-const authz = require("../../middleware/authorization");
 
 
-router.get('/', auth, authz, async (req, res) => {
+router.get('/', auth, async (req, res) => {
+    console.log(req.user);
+    console.log(req.isAdmin);
     const product = await Product.find({}).populate('category');
     if (!product) return res.status(404).send('No product found.');
     res.send(product);

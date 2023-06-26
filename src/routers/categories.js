@@ -11,7 +11,6 @@ router.get('/', auth, async (req, res) => {
 });
 
 router.post('/', auth, (req, res) => {
-    res.send(req.body);
     const {name, icon, color} = req.body;
     let category = new Category({
         name, icon, color
@@ -39,6 +38,6 @@ router.delete('/:id', auth, async (req, res) => {
     } catch (error) {
         res.status(500).send('Category could not be deleted.');
     }
-})
+});
 
 module.exports = router;
