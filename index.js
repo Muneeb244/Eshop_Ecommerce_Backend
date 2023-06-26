@@ -10,8 +10,13 @@ const category = require('./src/routers/categories');
 const product = require('./src/routers/products');
 const order = require('./src/routers/orders');
 
+
+//Middleware
+app.use(morgan('tiny'));
+app.use(express.json());
+
 //Routes
-app.use('/api/users', user);
+app.use('/api/users', user); // its remaining
 app.use('/api/categories', category);
 app.use('/api/products', product);
 app.use('/api/orders', order);
@@ -19,14 +24,14 @@ app.use('/api/orders', order);
 
 
 //Connect to DB
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true, dbName: "Eshop" })
 .then(() => console.log('Connected to Mongodb...'))
 .catch(err => console.log(err));
 
+app.get('/', (req, res) => {
+    res.json("Its working");
+})
 
-//Middleware
-app.use(morgan('tiny'));
-app.use(express.json());
 
 
 const PORT = process.env.PORT || 3000;
